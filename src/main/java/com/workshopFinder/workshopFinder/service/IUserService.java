@@ -12,6 +12,8 @@ public interface IUserService {
 
     List<User> findAll();
 
+    User findByNombre(String nombre);
+
 }
 
 

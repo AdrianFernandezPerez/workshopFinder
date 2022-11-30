@@ -31,4 +31,9 @@ public class UserServiceJpa implements IUserService {
         return userRepository.findAll();
     }
 
+    @Override
+    public User findByNombre(String nombre) {
+        return userRepository.findByNombre(nombre);
+    }
+
 }

@@ -12,29 +12,37 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long _id;
     private String nombre;
+    private String password;
     private Integer telefono;
     private String email;
     private String direccion;
     private String dni;
     private boolean premium;
+    private boolean admin;
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     List<Vehicle> vehiculos;
 
     public User() {
     }
 
-    public User(String nombre, Integer telefono, String email, String direccion, String dni, boolean premium) {
+    public User(String nombre, String password, Integer telefono, String email, String direccion, String dni) {
         this.nombre = nombre;
+        this.password = password;
         this.telefono = telefono;
         this.email = email;
         this.direccion = direccion;
         this.dni = dni;
-        this.premium = premium;
+        this.premium = false;
+        this.admin = false;
         vehiculos = new ArrayList<Vehicle>();
 
     }
 
-    public Long getIdCliente() {
+    public User(String email) {
+        this.email = email;
+    }
+
+    public Long getIdUser() {
         return _id;
     }
 
@@ -44,6 +52,14 @@ public class User {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Integer getTelefono() {
@@ -86,6 +102,14 @@ public class User {
         this.premium = premium;
     }
 
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+
     public void addVehiculos(Vehicle vehiculo) {
         if (!getVehiculos().contains(vehiculo)) {
             getVehiculos().add(vehiculo);
@@ -98,10 +122,19 @@ public class User {
     }
 
 
-
     @Override
     public String toString() {
-
-        return "Nombre: "+ getNombre() + "---" +  "Telefono: " + getTelefono() + "\n";
+        return "User{" +
+                "_id=" + _id +
+                ", nombre='" + nombre + '\'' +
+                ", password='" + password + '\'' +
+                ", telefono=" + telefono +
+                ", email='" + email + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", dni='" + dni + '\'' +
+                ", premium=" + premium +
+                ", admin=" + admin +
+                ", vehiculos=" + vehiculos +
+                '}';
     }
 }
