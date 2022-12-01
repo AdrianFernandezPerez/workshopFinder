@@ -3,6 +3,7 @@ package com.workshopFinder.workshopFinder.service;
 import com.workshopFinder.workshopFinder.model.User;
 import com.workshopFinder.workshopFinder.model.Vehicle;
 import com.workshopFinder.workshopFinder.repository.UserRepository;
+import com.workshopFinder.workshopFinder.repository.VehicleRepository;
 import com.workshopFinder.workshopFinder.service.exception.UserServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,11 +15,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
 public class UserServiceImpl {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private VehicleRepository vehicleRepository;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
@@ -74,15 +79,6 @@ public class UserServiceImpl {
             throw new UserServiceException("No existe usuario con id " + idUser);
         }
         userRepository.delete(user);
-    }
-
-    public void addVehicle(Long idUser, Vehicle vehicle) {
-        User user = userRepository.findById(idUser).orElse(null);
-        if (user == null) {
-            throw new UserServiceException("No existe usuario con id " + idUser);
-        }
-        user.addVehiculos(vehicle);
-        userRepository.save(user);
     }
 
     @Transactional(readOnly = true)

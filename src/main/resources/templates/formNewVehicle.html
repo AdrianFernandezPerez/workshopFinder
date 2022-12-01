@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>WorkshopFinder | Application for find a workshop.</title>
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link th:href="@{/css/jumbotron.css}" rel="stylesheet">
+    <link th:href="@{/css/sticky-footer-navbar.css}" rel="stylesheet">
+</head>
+
+<body>
+
+<header th:replace="fragments/menu :: menu-principal">
+
+</header>
+
+<main role="main">
+
+    <div class="container h-100 pb-3" style="background-color: #D6EAF8;">
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="col-10 col-md-8 col-lg-10">
+
+                <h2 class="text-center" th:text="'Nuevo vehiculo '"></h2>
+
+                <form method="post" th:action="@{/vehicle/new}" th:object="${vehicle}">
+
+                    <div class="form-group">
+                        <label for="marca">Marca:</label>
+                        <input class="form-control" id="marca" name="marca" required th:field="*{marca}" type="text"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modelo">Modelo:</label>
+                        <input class="form-control" id="modelo" name="modelo" required th:field="*{modelo}" type="text"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="matricula">Matricula:</label>
+                        <input class="form-control" id="matricula" name="matricula" required th:field="*{matricula}"
+                               type="text"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipoVehiculo">Tipo de vehiculo:</label>
+                        <select th:field="*{tipoVehiculo}">
+                            <option id="tipoVehiculo" th:each="vehicleType : ${T(com.workshopFinder.workshopFinder.model.VehicleType).values()}"
+                                    th:text="${vehicleType}"
+                                    th:value="${vehicleType}">
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Añadir vehiculo</button>
+                    <a class="btn btn-danger" th:href="@{/vehiculo/lista}">Cancelar</a>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer :: pie-pagina" class="footer">
+
+</footer>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

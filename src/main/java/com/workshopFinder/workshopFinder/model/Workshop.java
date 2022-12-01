@@ -2,6 +2,10 @@ package com.workshopFinder.workshopFinder.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 @Entity
 @Table(name = "workshops")
 public class Workshop {
@@ -14,6 +18,9 @@ public class Workshop {
     private String email;
     private String direccion;
 
+    @OneToMany(mappedBy = "workshop", fetch = FetchType.EAGER)
+    List<Appointment> appointments;
+
     public Workshop() {
     }
 
@@ -22,6 +29,7 @@ public class Workshop {
         this.telefono = telefono;
         this.email = email;
         this.direccion = direccion;
+        appointments = new ArrayList<Appointment>();
     }
 
     public Long get_id() {
@@ -58,5 +66,16 @@ public class Workshop {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    public void addAppointments(Appointment appointment) {
+        if (!getAppointments().contains(appointment)) {
+            getAppointments().add(appointment);
+            appointment.setWorkshop(this);
+        }
+    }
+
+    public Collection<Appointment> getAppointments() {
+        return appointments;
     }
 }

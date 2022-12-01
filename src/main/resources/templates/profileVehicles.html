@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>WorkshopFinder | Application for find a workshop.</title>
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link th:href="@{/css/jumbotron.css}" rel="stylesheet">
+    <link th:href="@{/css/sticky-footer-navbar.css}" rel="stylesheet">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+
+<body>
+
+<header th:replace="fragments/menu :: menu-principal">
+
+</header>
+
+<main role="main">
+
+    <div class="container-fluid bg-light">
+
+        <div class="row mt-3 pt-3 text-center  bg-light">
+            <div class="col">
+                <h2 th:text="'Listado de vehiculos'"></h2>
+            </div>
+        </div>
+
+
+        <div class="row mt-3">
+            <div class="col">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Matricula</th>
+                        <th>Tipo de Vehiculo</th>
+                        <th colspan="2">Opciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="vehiculo: ${vehicles}">
+                        <td th:text="${vehiculo.marca}"></td>
+                        <td th:text="${vehiculo.modelo}"></td>
+                        <td th:text="${vehiculo.matricula}"></td>
+                        <td th:text="${vehiculo.tipoVehiculo}"></td>
+
+                        <!-- HAY QUE AÑADIR LOS ENLACES -->
+                        <td><span><a class="btn btn-warning" role="button"
+                                     th:href="@{/vehicle/{id}/editar(id=${vehiculo.getIdVehiculo()})}">Modificar</a></span>
+                        </td>
+                        <td><span>
+
+                             <a th:href="@{/vehicle/{id}(id=${vehiculo.getIdVehiculo()})}" onclick="return confirm('¿Estas seguro?')" class="btn btn-danger btn-sm" role="button" title="Eliminar"><i class="fas fa-trash" aria-hidden="true"></i></a>
+                        </span>
+
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="row pt-3 justify-content-center text-center align-items-center mx-auto"
+                     style="background-color: #AED6F1;">
+                    <p><a class="btn" style="background-color: #116FFF; color: white" th:href="@{/vehicle/new}"> Nuevo
+                        vehiculo</a>
+                        <a class="btn" style="background-color: darkred; color: white" th:href="@{/gestion}">Salir</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <div class="alert alert-success alert-dismissible fade show" role="alert"
+                     th:if="${!#strings.isEmpty(mensaje)}">
+                    <span th:text="${mensaje}"></span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer :: pie-pagina" class="footer">
+
+</footer>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

@@ -1,8 +1,11 @@
 package com.workshopFinder.workshopFinder.service;
 
+import com.workshopFinder.workshopFinder.model.User;
 import com.workshopFinder.workshopFinder.model.Vehicle;
 import com.workshopFinder.workshopFinder.model.VehicleType;
+import com.workshopFinder.workshopFinder.repository.UserRepository;
 import com.workshopFinder.workshopFinder.repository.VehicleRepository;
+import com.workshopFinder.workshopFinder.service.exception.UserServiceException;
 import com.workshopFinder.workshopFinder.service.exception.VehicleServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +16,12 @@ import java.util.List;
 
 @Service
 public class VehicleServiceImpl {
-
+    @Autowired
     private VehicleRepository vehicleRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
 
     @Autowired
     public VehicleServiceImpl(VehicleRepository vehicleRepository) {
@@ -22,10 +29,13 @@ public class VehicleServiceImpl {
     }
 
     @Transactional
-    public Vehicle newVehicle(String marca, String modelo, String matricula, VehicleType tipoVehiculo) {
-        Vehicle vehicle = new Vehicle(marca, modelo, matricula, tipoVehiculo);
+    public void addVehicle(Long idUser, Vehicle vehicle) {
+        User user = userRepository.findById(idUser).orElse(null);
+        if (user == null) {
+            throw new UserServiceException("No existe usuario con id " + idUser);
+        }
+        user.addVehiculos(vehicle);
         vehicleRepository.save(vehicle);
-        return vehicle;
     }
 
     @Transactional(readOnly = true)

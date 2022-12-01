@@ -9,12 +9,13 @@
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/workshops/index}">Talleres</a>
             </li>
-            <li class="nav-item" th:if="${user.admin}">
+            <li class="nav-item" th:if="${user.isAdmin()}">
                 <a class="nav-link" th:href="@{/users/index}">Usuarios</a>
             </li>
         </ul>
         <div >
-            <a class="btn btn-primary" th:href="@{/profile/{email}(email=${user.email})}" th:text="${user.nombre}">'</a>
+            <a class="btn btn-primary" th:href="@{/profile}" th:text="${user.nombre}">'</a>
+
             <a class="btn btn-danger" th:href="@{/logout}">Cerrar Sesion</a>
         </div>
 

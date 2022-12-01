@@ -26,49 +26,71 @@
 
     <div class="container-fluid">
 
-        <div class="row justify-content-center mb-3">
-            <div class="col-auto">
-                <h2>Perfil del usuario</h2>
-            </div>
-        </div>
 
         <div class="row justify-content-center">
             <div class="col-6">
-                    <div class="row justify-content-center">
-                        <div class="col-6 bg-light">
-                            <div class="form-group">
-                                <label for="email">Correo electrónico</label>
-                                <input id="email" class="form-control" name="email" placeholder="Correo electrónico"
-                                       type="text" th:field="*{user.email}" readonly/>
-                            </div>
-                            <div class="form-group">
-                                <label for="nombre">Nombre</label>
-                                <input id="nombre" class="form-control" name="nombre" placeholder="Nombre" type="text"
-                                       th:field="*{user.nombre}" readonly/>
-                            </div>
-                            <div class="form-group">
-                                <label for="dni">Dni</label>
-                                <input id="dni" class="form-control" name="dni" placeholder="Dni" type="text"
-                                       th:field="*{user.dni}" readonly/>
-                            </div>
-                            <div class="form-group">
-                                <label for="telefono">Telefono</label>
-                                <input id="telefono" class="form-control" name="telefono" placeholder="Telefono" type="number"
-                                       th:field="*{user.telefono}" readonly/>
-                            </div>
-                            <div class="form-group">
-                                <label for="direccion">Direccion</label>
-                                <input id="direccion" class="form-control" name="direccion" placeholder="Direccion" type="text"
-                                       th:field="*{user.direccion}" readonly/>
-                            </div>
-                            <div class="form-group text-center" >
-                                <label for="premium">Premium</label>
-                                <input id="premium" class="form-control" name="premium" placeholder="Premium" type="checkbox"
-                                       th:checked="*{user.premium}" disabled/>
+                <div class="row justify-content-center">
+                    <div class="col-6 bg-light">
+                        <div class="text-center">
+                            <h2>Perfil del usuario</h2>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Correo electrónico</label>
+                            <input id="email" class="form-control" name="email" placeholder="Correo electrónico"
+                                   type="text" th:field="*{user.email}" readonly/>
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input id="nombre" class="form-control" name="nombre" placeholder="Nombre" type="text"
+                                   th:field="*{user.nombre}" readonly/>
+                        </div>
+                        <div class="form-group">
+                            <label for="dni">Dni</label>
+                            <input id="dni" class="form-control" name="dni" placeholder="Dni" type="text"
+                                   th:field="*{user.dni}" readonly/>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono">Telefono</label>
+                            <input id="telefono" class="form-control" name="telefono" placeholder="Telefono"
+                                   type="number"
+                                   th:field="*{user.telefono}" readonly/>
+                        </div>
+                        <div class="form-group">
+                            <label for="direccion">Direccion</label>
+                            <input id="direccion" class="form-control" name="direccion" placeholder="Direccion"
+                                   type="text"
+                                   th:field="*{user.direccion}" readonly/>
+                        </div>
+                        <div class="form-group text-center">
+                            <label for="premium">Premium</label>
+                            <input id="premium" class="form-control" name="premium" placeholder="Premium"
+                                   type="checkbox"
+                                   th:checked="*{user.premium}" disabled/>
 
-                            </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="row justify-content-center">
+                    <div class="col-6 bg-light">
+                        <div class="text-center">
+                            <h2>Acciones</h2>
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="button" class="btn btn-success">Comprar premium</button>
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="button" class="btn btn-info">Actualizar perfil</button>
+                        </div>
+                        <div class="form-group text-center">
+                                <a class="btn btn-primary" th:href="@{/profile/vehicles}">Menú vehículos</a>
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="button" class="btn btn-warning">Menú citas</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

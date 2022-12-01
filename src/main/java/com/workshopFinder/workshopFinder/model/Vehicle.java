@@ -2,6 +2,9 @@ package com.workshopFinder.workshopFinder.model;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "vehiculos")
@@ -19,6 +22,9 @@ public class Vehicle implements Serializable {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToMany(mappedBy = "vehicle", fetch = FetchType.EAGER)
+    List<Appointment> appointments;
+
     //private ArrayList<Integer> reparaciones;
 
     public Vehicle() {
@@ -29,6 +35,7 @@ public class Vehicle implements Serializable {
         this.modelo = modelo;
         this.matricula = matricula;
         this.tipoVehiculo = vehicleType;
+        appointments = new ArrayList<Appointment>();
     }
 
     public Long getIdVehiculo() {
@@ -84,6 +91,17 @@ public class Vehicle implements Serializable {
         this.reparaciones = reparaciones;
     }
     */
+
+    public void addAppointments(Appointment appointment) {
+        if (!getAppointments().contains(appointment)) {
+            getAppointments().add(appointment);
+            appointment.setVehicle(this);
+        }
+    }
+
+    public Collection<Appointment> getAppointments() {
+        return appointments;
+    }
 
     @Override
     public String toString() {

@@ -3,6 +3,7 @@ package com.workshopFinder.workshopFinder.controller;
 import com.workshopFinder.workshopFinder.authentication.ManagerUserSession;
 import com.workshopFinder.workshopFinder.model.User;
 import com.workshopFinder.workshopFinder.service.UserServiceImpl;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,10 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.util.Properties;
 
 
 @Controller
 public class HomeController {
+
+    public static final Properties defaultProperties = new Properties();
 
     @Autowired
     UserServiceImpl userService;
@@ -29,7 +33,6 @@ public class HomeController {
     @GetMapping("/home")
     public String home(Model model, HttpSession session) {
         User user = userService.findById(managerUserSession.usuarioLogeado(session));
-        System.out.println(user);
         model.addAttribute("user", user);
         return "home";
     }
@@ -48,9 +51,8 @@ public class HomeController {
 
         if (loginStatus == UserServiceImpl.LoginStatus.LOGIN_OK) {
             User user = userService.findByEmail(loginData.geteMail());
-
             managerUserSession.logearUsuario(session, user.getIdUser());
-
+            defaultProperties.put("email", user.getEmail());
             return "redirect:/home";
         } else if (loginStatus == UserServiceImpl.LoginStatus.USER_NOT_FOUND) {
             model.addAttribute("error", "No existe usuario");
